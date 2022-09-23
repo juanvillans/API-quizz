@@ -5,9 +5,10 @@ export default function Question(props) {
   const [options, setOptions] = React.useState([]);
   React.useEffect(() => {
     let mix = [...props.incorrect];
+    console.log('cargaron las opciones')
     mix.splice(Math.trunc(Math.random() * 4), 0, props.correct);
     setOptions(mix);
-  }, []);
+  }, [props.title]);
 
   const lis = options.map((option, i) => {
     let statusStyle = "transparent";
@@ -18,7 +19,7 @@ export default function Question(props) {
 
     if (props.allowResults) {
       if (props.correct == option) {
-        statusStyle = "bg-green-200 border-green-200";
+        statusStyle = "bg-green-300 border-green-300";
       } else if (props.selected[props.id] == option ) {
           statusStyle = "opacity-75 bg-red-200 border-red-200"
       } else statusStyle = "opacity-75 border-color2"
@@ -26,19 +27,19 @@ export default function Question(props) {
     return (
       <li
         className={
-          `${statusStyle} rounded-lg border font-medium py-0.5 px-3 text-xs`
+          `${statusStyle}z-50 relative rounded-lg border font-medium py-0.5 px-3 text-xs cursor-default`
         }
         onClick={() => props.toggleAnswer(props.id, option)}
       >
-        {option}
+        {decodeURIComponent(option)}
       </li>
     );
   });
 
   return (
-    <article className="border-b-2 py-6 border-col">
-      <h2 className="font-bold text-xl mb-3">{props.title}</h2>
-      <ul className="flex gap-6">{lis}</ul>
+    <article className="relative border-b-2 z-50 py-6 border-col ">
+      <h2 className=" font-bold z-50  text-xl mb-3">{decodeURIComponent(props.title)}</h2>
+      <ul className=" flex gap-6 z-50">{lis}</ul>
     </article>
   );
 }

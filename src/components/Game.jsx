@@ -1,65 +1,98 @@
-import React from "react";
-import LiBox from "./LiBox";
+// import React from "react";
+// import blop_limon from "../img/bloblimon.png";
+// import blop_blue from "../img/blobblue.png";
+// import SpinLoader from "./SpinLoader";
+
+
+// export default function Game(props){
+//     function toggleAnswer(id_question, answer_value) {
+//         if (!allowResults.isAllow) {
+//           setSelectedAnswers((prev) => {
+//             const newAnswers = prev.answers.map((ans, i) =>
+//               i == id_question ? `${answer_value}` : ans
+//             );
+//             return {
+//               isFilled: !newAnswers.some((str) => str == ""),
+//               answers: newAnswers,
+//             };
+//           });
+//         }
+//       }
+
+//     function checkAnswers() {
+//         if (selectedAnswers.isFilled) {
+//           let n_correct = 0;
+//           selectedAnswers.answers.forEach((answer, i) => {
+//             let true_answer = quizzData[i].correct_answer;
+//             console.log({ true_answer, answer });
+//             if (answer === quizzData[i].correct_answer) n_correct++;
+//           });
+//           setAllowResults({
+//             isAllow: true,
+//             results: `You score is ${n_correct}/${quizzData.length}`,
+//           });
+//         } else {
+//           setShowAlert(true);
+//         }
+//       }
+
+//     const questionPackEl = quizzData.map((question, i) => {
+//         return (
+//           <Question
+//             key={i}
+//             title={question.question}
+//             incorrect={question.incorrect_answers}
+//             correct={question.correct_answer}
+//             id={i}
+//             toggleAnswer={toggleAnswer}
+//             selected={selectedAnswers.answers}
+//             allowResults={allowResults.isAllow}
+//           />
+//         );
+//       });
 
 
 
-let boxHolded;
-  let mainNumber;
+//     return ( 
+//         <div className="overflow-hidden relative my-5 w-11/12 max-w-3xl p-7 md:px-12 bg-slate-100">
+//           {questionPackEl}
+//           <div className="flex relative z-50 gap-4 mt-5 font-bold items-center justify-center">
+//             {showAllert && !selectedAnswers.isFilled && (
+//               <p className="text-red-500 text-md">
+//                 You must answer all the questions
+//               </p>
+//             )}
 
-export default function Game() {
-  const [numbers, setNumbers] = React.useState(getRandomN());
+//             {allowResults.isAllow && (
+//               <p className="text-md ">{allowResults.results}</p>
+//             )}
 
-  function getRandomN() {
-    const arrN = [];
-    for (let i = 0; i < 10; i++) {
-      arrN.push({number: Math.trunc(Math.random() * 6) + 1, hold: false});
-    }
-    return arrN;
-  }
-
-  const boxes = numbers.map((n, i) => (
-    <LiBox hold={n.hold} id={i} key={i} selectBox={selectBox} value={n.number} />
-  ));
-
-  const [tenzies, setTenzies] = React.useState(false)
-    
-  React.useEffect(() => {
-      const result = numbers.every(die => (die.hold === true) && (die.number === numbers[0].number))
-      result? setTenzies(true) : setTenzies(false)
-  }, [numbers])
-
-  function selectBox(event, id) {
-    setNumbers(prev => prev.map( (box, i) =>  (id == i ? {...box, hold: !box.hold} : box))) 
-  }
-
-  function Roll() {
-    setNumbers((prev) => {
-    return  prev.map((n,i) => {
-       return (n.hold? n : {...n, number: Math.trunc(Math.random() * 6) + 1})
-      });
-    });
-  }
-  function resetGame() {
-    setNumbers(getRandomN())
-  }
-
-  return (
-    <div className="text-center flex flex-col justify-between rounded-xl p-12 items-center bg-gray-200 h-3/4 w-3/4">
-      <header>
-        <h1 className="bg text-4xl font-semibold ">Tenzies</h1>
-        <p className="mt-2 leading-5">
-          Roll until all dice are the same. Click each die to freeze it at its
-          current value between rolls.
-        </p>
-      </header>
-      <ul className="grid gap-5 text-neutral-700 grid-rows-2 text-2xl font-bold grid-cols-5">
-        {boxes}
-      </ul>
-      
-        {tenzies 
-        ? <button onClick={resetGame} className="py-2 px-10  bg-morado rounded-md text-white text-2xl">Reset Game</button>
-        : <button onClick={Roll} className="py-2 px-10  bg-morado rounded-md text-white text-2xl">Roll</button>
-        }
-    </div>
-  );
-}
+//             {allowResults.isAllow ? (
+//               <button
+//                 onClick={() => setNewGame((prev) => ++prev)}
+//                 className=" bg-color1 py-3 px-7 rounded-lg text-white font-bold"
+//               >
+//                 play again
+//               </button>
+//             ) : (
+//               <button
+//                 onClick={checkAnswers}
+//                 className=" bg-color2 py-3 px-7 rounded-lg text-white font-bold"
+//               >
+//                 Check answers
+//               </button>
+//             )}
+//           </div>
+//           <img
+//           src={blop_limon}
+//           className="absolute z-0  w-56 -top-24 -right-24"
+//           alt=""
+//         />
+//         <img
+//           src={blop_blue}
+//           className="absolute z-0  w-56 -bottom-12 -left-20"
+//           alt=""
+//         />
+//         </div>
+//     )
+// }
