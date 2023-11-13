@@ -27,8 +27,9 @@ export default function Question(props) {
     return (
       <li
         className={
-          `${statusStyle}z-50 relative rounded-lg border font-medium py-0.5 px-3 text-xs cursor-default`
+          `${statusStyle}z-50 relative cursor-pointer rounded-lg border font-medium  px-3 text-xs py-1`
         }
+        key={props.id}
         onClick={() => props.toggleAnswer(props.id, option)}
       >
         {decodeURIComponent(option)}
@@ -38,8 +39,8 @@ export default function Question(props) {
 
   return (
     <article className="relative border-b-2 z-50 py-6 border-col ">
-      <h2 className=" font-bold z-50  text-xl mb-3">{decodeURIComponent(props.title)}</h2>
-      <ul className=" flex gap-6 z-50">{lis}</ul>
+      <h2 className=" font-bold z-50  sm:text-xl mb-3">{decodeURIComponent(props.title)}</h2>
+      <ul className="flex flex-col sm:flex-row gap-2 sm:gap-6 z-50">{lis}</ul>
     </article>
   );
 }

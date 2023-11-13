@@ -21,15 +21,15 @@ function App() {
   });
   const [showAllert, setShowAlert] = React.useState(false);
   const [newGame, setNewGame] = React.useState(0);
- const [isLoading, setIsloading] = React.useState(true)
+  const [isLoading, setIsloading] = React.useState(true);
 
   React.useEffect(() => {
     if (newGame > 0) {
-     setIsloading(true)
+      setIsloading(true);
       fetch("https://opentdb.com/api.php?amount=5&type=multiple&encode=url3986")
         .then((resp) => resp.json())
         .then((data) => {
-          setIsloading(false)
+          setIsloading(false);
           setQuizzData(() => data.results);
         });
       setSelectedAnswers({ isFilled: false, answers: Array(5).fill("") });
@@ -57,7 +57,6 @@ function App() {
       let n_correct = 0;
       selectedAnswers.answers.forEach((answer, i) => {
         let true_answer = quizzData[i].correct_answer;
-        console.log({ true_answer, answer });
         if (answer === quizzData[i].correct_answer) n_correct++;
       });
       setAllowResults({
@@ -84,12 +83,10 @@ function App() {
     );
   });
 
-  console.log({ quizzData });
   return (
     <div className=" w-full  flex justify-center items-center">
       {quizzData.length > 0 && (
         <div className="overflow-hidden relative my-5 w-11/12 max-w-3xl p-7 md:px-12 bg-slate-100">
-          
           {!isLoading && questionPackEl}
           <div className="flex relative z-50 gap-4 mt-5 font-bold items-center justify-center">
             {showAllert && !selectedAnswers.isFilled && (
@@ -113,44 +110,47 @@ function App() {
               <button
                 onClick={checkAnswers}
                 className="min-w-[100px] bg-color2 py-3 px-7 rounded-lg text-white font-bold"
-              >{isLoading? <SpinLoader/> : 'Check answers'}
+              >
+                {isLoading ? <SpinLoader /> : "Check answers"}
               </button>
             )}
           </div>
           <img
-          src={blop_limon}
-          className="absolute z-0  w-56 -top-24 -right-24"
-          alt=""
-        />
-        <img
-          src={blop_blue}
-          className="absolute z-0  w-56 -bottom-12 -left-20"
-          alt=""
-        />
+            src={blop_limon}
+            className="absolute z-0  w-56 -top-24 -right-24"
+            alt=""
+          />
+          <img
+            src={blop_blue}
+            className="absolute z-0  w-56 -bottom-12 -left-20"
+            alt=""
+          />
         </div>
       )}
-  { quizzData.length == 0 &&
-      <div className="overflow-hidden relative bg-slate-100 flex flex-col items-center justify-center aspect-square w-[500px] mt-10">
-        <h1 className="z-10 font-bold text-3xl mb-2">Quizzical</h1>
-        <p className="z-10 text-color1">Prove your knowledge with this game</p>
-        <button
-          onClick={() => setNewGame((prev) => ++prev)}
-          className="z-10 bg-color2 relative top-10 py-3 px-12 rounded-lg text-white font-medium"
-        >
-        {newGame == 1 ? <SpinLoader/>  : 'Start quizz'}
-        </button>
-        <img
-          src={blop_limon}
-          className="absolute w-56  -top-24 -right-24"
-          alt=""
-        />
-        <img
-          src={blop_blue}
-          className="absolute w-56  -bottom-12 -left-20"
-          alt=""
-        />
-      </div>
-}
+      {quizzData.length == 0 && (
+        <div className="overflow-hidden relative bg-slate-100 flex flex-col items-center justify-center aspect-square w-[500px] mt-10">
+          <h1 className="z-10 font-bold text-3xl mb-2">Quizzical</h1>
+          <p className="z-10 text-color1">
+            Prove your knowledge with this game
+          </p>
+          <button
+            onClick={() => setNewGame((prev) => ++prev)}
+            className="z-10 bg-color2 relative top-10 py-3 px-12 rounded-lg text-white font-medium"
+          >
+            {newGame == 1 ? <SpinLoader /> : "Start quizz"}
+          </button>
+          <img
+            src={blop_limon}
+            className="absolute w-56  -top-24 -right-24"
+            alt=""
+          />
+          <img
+            src={blop_blue}
+            className="absolute w-56  -bottom-12 -left-20"
+            alt=""
+          />
+        </div>
+      )}
     </div>
   );
 }
